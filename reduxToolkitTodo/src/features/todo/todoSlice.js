@@ -4,6 +4,7 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
+  editClicked: { id: Date.now, todo: "", text: "" },
   todos: [{ id: 1, text: "Hello World" }],
 };
 
@@ -31,11 +32,20 @@ export const todoSlice = createSlice({
         }
       });
     },
+    editClicked: (state, action) => {
+      const temp = {
+        id: action.payload.id,
+        todo: action.payload.todo,
+        text: action.payload.text,
+      };
+      state.editClicked = temp;
+    },
   },
 });
 
 //We need to export each and every reducers as bydefault it does not export so we need to follow below step
-export const { addTodo, removeTodo, updateTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, updateTodo, editClicked } =
+  todoSlice.actions;
 
 //We also have to export reducers which store requires
 export default todoSlice.reducer;

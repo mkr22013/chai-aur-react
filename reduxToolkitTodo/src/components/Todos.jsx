@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeTodo } from "../features/todo/todoSlice";
+import { removeTodo, editClicked } from "../features/todo/todoSlice";
+
 //Here we need useSelector as we need to read data from store
 //Here we need useDispatch because we want to remove todo as well it means we are dispatching something
 //When we dispatch something it means we need reducers so we took removeTodo here as it removes the Todo
@@ -8,6 +9,7 @@ import { removeTodo } from "../features/todo/todoSlice";
 function Todos() {
   const todos = useSelector((state) => state.todos); //useSelector gives us state from which we can get any value which is part of store
   const dispatch = useDispatch();
+
   return (
     <>
       <div>Todos</div>
@@ -19,7 +21,18 @@ function Todos() {
           >
             <div className="text-white ">{todo.text}</div>
             <div>
-              <button className="text-white bg-red-500 border-0 py-1 px-4 m-2 focus:outline-none hover:bg-red-600 rounded text-md">
+              <button
+                onClick={() =>
+                  dispatch(
+                    editClicked({
+                      id: todo.id,
+                      todo: todo.text,
+                      text: "Update",
+                    })
+                  )
+                }
+                className="text-white bg-red-500 border-0 py-1 px-4 m-2 focus:outline-none hover:bg-red-600 rounded text-md"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-6 w-6"
