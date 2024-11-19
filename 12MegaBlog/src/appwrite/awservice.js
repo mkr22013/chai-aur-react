@@ -29,7 +29,7 @@ export class Service {
         { title, content, id, status, userId }
       );
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -42,7 +42,7 @@ export class Service {
         { title, content, featuredImage, status, userId }
       );
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -54,7 +54,7 @@ export class Service {
         slug
       );
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -66,7 +66,7 @@ export class Service {
         slug
       );
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -78,7 +78,7 @@ export class Service {
         queries
       );
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -91,7 +91,7 @@ export class Service {
         file
       );
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -99,7 +99,7 @@ export class Service {
     try {
       return await this.bucket.deleteFile(this.config.appwriteBucketId, fileId);
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -107,9 +107,19 @@ export class Service {
     try {
       return this.bucket.getFilePreview(this.config.appwriteBucketId, fileId);
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
+}
+
+//Function will return the current method name in which it is being called
+function getMyName() {
+  var e = new Error("dummy");
+  var stack = e.stack
+    .split("\n")[2]
+    // " at functionName ( ..." => "functionName"
+    .replace(/^\s+at\s+(.+?)\s.+/g, "$1");
+  return stack;
 }
 
 const service = new Service();

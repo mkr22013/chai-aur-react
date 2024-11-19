@@ -29,7 +29,7 @@ export class AuthService {
         return userAccount;
       }
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -37,7 +37,7 @@ export class AuthService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -45,7 +45,7 @@ export class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
 
@@ -53,9 +53,19 @@ export class AuthService {
     try {
       return await this.account.deleteSessions();
     } catch (error) {
-      common.generateError(arguments.callee.name);
+      common.generateError(getMyName(), error);
     }
   }
+}
+
+//Function will return the current method name in which it is being called
+function getMyName() {
+  var e = new Error("dummy");
+  var stack = e.stack
+    .split("\n")[2]
+    // " at functionName ( ..." => "functionName"
+    .replace(/^\s+at\s+(.+?)\s.+/g, "$1");
+  return stack;
 }
 
 const authService = new AuthService();
