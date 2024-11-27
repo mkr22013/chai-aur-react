@@ -22,7 +22,7 @@ function App() {
   }, []);
 
   return !loading ? (
-    <div className="min-h-screen flex-wrap bg-gray-400 content-center font-bold text-3xl">
+    <div className="min-h-screen flex-wrap bg-gray-400 content-between font-bold text-3xl">
       <div className="w-full block">
         <Header />
         <main>TODO{/* <Outlet/> */}</main>
