@@ -18,6 +18,7 @@ function App() {
         if (userData) dispatch(login({ userData }));
         else dispatch(logout());
       })
+      .catch(() => dispatch(logout()))
       .finally(() => setLoading(false));
   }, []);
 

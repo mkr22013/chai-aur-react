@@ -12,6 +12,7 @@ export class AuthService {
       .setProject(config.appwriteProjectId);
 
     this.account = new Account(this.client);
+    console.log("Account Details :", this.account);
   }
 
   async createAccount({ email, password, name }) {
@@ -43,9 +44,11 @@ export class AuthService {
 
   async getCurrentUser() {
     try {
-      return await this.account.get();
+      return await this.account
+        .get()
+        .then((res) => console.log("Logged in User : ", res));
     } catch (error) {
-      common.generateError(getMyName(), error);
+      common.generateError("getCurrentUser", error);
     }
   }
 
